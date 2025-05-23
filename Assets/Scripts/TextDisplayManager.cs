@@ -5,6 +5,12 @@ using TMPro;
 public class TextDisplayManager : MonoBehaviour
 {
     public List<TMP_Text> cropPrice;
+    public TMP_Text coin;
+    private CropsManager cropsManager;
+    void Awake()
+    {
+        cropsManager = GameObject.Find("CropsManager").GetComponent<CropsManager>();
+    }
 
     public void UpdateCropPrice(int price)
     {
@@ -12,5 +18,10 @@ public class TextDisplayManager : MonoBehaviour
         {
             text.text = price.ToString();
         }
+    }
+
+    public void UpdateCoin()
+    {
+        coin.text = cropsManager.gold.ToString();
     }
 }

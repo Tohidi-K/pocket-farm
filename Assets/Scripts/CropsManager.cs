@@ -1,3 +1,4 @@
+using NUnit.Framework;
 using UnityEngine;
 
 public class CropsManager : MonoBehaviour
@@ -18,6 +19,7 @@ public class CropsManager : MonoBehaviour
         if ((gold - cropPrices[i]) > 0)
         {
             gold -= cropPrices[i];
+            textDisplayManager.UpdateCoin();
             i++;
             if (i < 10)
             {

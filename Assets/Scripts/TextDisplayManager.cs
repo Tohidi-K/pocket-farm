@@ -5,6 +5,7 @@ using TMPro;
 public class TextDisplayManager : MonoBehaviour
 {
     public List<TMP_Text> cropPrice;
+    public List<TMP_Text> cropLevel;
     public TMP_Text coin;
     private CropsManager cropsManager;
     void Awake()
@@ -23,5 +24,10 @@ public class TextDisplayManager : MonoBehaviour
     public void UpdateCoin()
     {
         coin.text = cropsManager.gold.ToString();
+    }
+
+    public void UpdateLevel(int cropIndex)
+    {
+        cropLevel[cropIndex].text = (cropsManager.cropLevel[cropIndex] + 1).ToString();
     }
 }

@@ -44,7 +44,6 @@ public class CropsColorChanger : MonoBehaviour
             }
             cauliflowerButton.SetActive(false);
         }
-        Debug.Log(cropsManager.gold);
     }
 
     public void ChangeCornColor()
@@ -58,7 +57,6 @@ public class CropsColorChanger : MonoBehaviour
             }
             cornButton.SetActive(false);
         }
-        Debug.Log(cropsManager.gold);
     }
 
     public void ChangeCarrotColor()
@@ -72,7 +70,6 @@ public class CropsColorChanger : MonoBehaviour
             }
             carrotButton.SetActive(false);
         }
-        Debug.Log(cropsManager.gold);
     }
 
     public void ChangeGarlicColor()
@@ -86,7 +83,6 @@ public class CropsColorChanger : MonoBehaviour
             }
             garlicButton.SetActive(false);
         }
-        Debug.Log(cropsManager.gold);
     }
 
     public void ChangeWatermelonColor()
@@ -100,7 +96,6 @@ public class CropsColorChanger : MonoBehaviour
             }
             watermelonButton.SetActive(false);
         }
-        Debug.Log(cropsManager.gold);
     }
 
     public void ChangeEggplantColor()
@@ -114,7 +109,6 @@ public class CropsColorChanger : MonoBehaviour
             }
             eggplantButton.SetActive(false);
         }
-        Debug.Log(cropsManager.gold);
     }
 
     public void ChangeTomatoColor()
@@ -128,7 +122,6 @@ public class CropsColorChanger : MonoBehaviour
             }
             tomatoButton.SetActive(false);
         }
-        Debug.Log(cropsManager.gold);
     }
 
     public void ChangeRadishColor()
@@ -142,7 +135,6 @@ public class CropsColorChanger : MonoBehaviour
             }
             radishButton.SetActive(false);
         }
-        Debug.Log(cropsManager.gold);
     }
 
     public void ChangePepperColor()
@@ -156,7 +148,6 @@ public class CropsColorChanger : MonoBehaviour
             }
             pepperButton.SetActive(false);
         }
-        Debug.Log(cropsManager.gold);
     }
 
     public void ChangePumpkinColor()
@@ -170,6 +161,5 @@ public class CropsColorChanger : MonoBehaviour
             }
             pumpkinButton.SetActive(false);
         }
-        Debug.Log(cropsManager.gold);
     }
 }

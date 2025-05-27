@@ -69,10 +69,19 @@ public class CropsManager : MonoBehaviour
         if (gold >= cropData.upgradePrices[cropIndex, cropLevel[cropIndex]])
         {
             gold -= cropData.upgradePrices[cropIndex, cropLevel[cropIndex]];
-            textDisplayManager.UpdateCoin();
             cropLevel[cropIndex]++;
+            if (cropLevel[cropIndex] == 9)
+            {
+                upgradeButtons[cropIndex].SetActive(false);
+            }
+            textDisplayManager.UpdateCoin();
             upgradeText[cropIndex].text = cropData.upgradePrices[cropIndex, cropLevel[cropIndex]].ToString();
             textDisplayManager.UpdateLevel(cropIndex);
         }
+    }
+
+    public void EarnProfit(int cropIndex)
+    {
+        gold += cropData.profitNumbers[cropIndex, cropLevel[cropIndex]];
     }
 }

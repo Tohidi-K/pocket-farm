@@ -13,6 +13,14 @@ public class CropTimer : MonoBehaviour
 
     private float[] timers = {0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f};
     private float fillAmount;
+    private CropsManager cropsManager;
+    private TextDisplayManager textDisplayManager;
+
+    void Awake()
+    {
+        cropsManager = GameObject.Find("CropsManager").GetComponent<CropsManager>();
+        textDisplayManager = GameObject.Find("UIManager").GetComponent<TextDisplayManager>();
+    }
 
     private void Update()
     {
@@ -26,8 +34,15 @@ public class CropTimer : MonoBehaviour
 
                 if (timers[i] >= cycleDuration[i])
                 {
+                    if (!textDisplayManager.cropProfit[i].gameObject.activeInHierarchy)
+                    {
+                        textDisplayManager.cropProfit[i].gameObject.SetActive(true);
+                    }
+                    cropsManager.EarnProfit(i);
+                    textDisplayManager.UpdateCoin();
                     timers[i] = 0f;
                     cropsTimer[i].fillAmount = 0f;
+                    textDisplayManager.DisplayProfit(i);
                 }
             }
         }

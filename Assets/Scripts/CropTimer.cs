@@ -1,6 +1,7 @@
+using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections.Generic;
 
 public class CropTimer : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class CropTimer : MonoBehaviour
 
     //radish, garlic, cauliflower, tomatom, pepper, corn, eggplant, carrot, pumpkin, watermelon
     public float[] cycleDuration = { 1f, 1.2f, 1.4f, 1.7f, 2f, 2.4f, 2.7f, 3f, 3.5f, 5f };
+    public int[] fertilizerCounter = {5, 5, 5, 5, 5, 5, 5, 5, 5, 5};
 
     private float[] timers = {0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f, 0f};
     private float fillAmount;
@@ -38,7 +40,17 @@ public class CropTimer : MonoBehaviour
                     {
                         textDisplayManager.cropProfit[i].gameObject.SetActive(true);
                     }
+                    
                     cropsManager.EarnProfit(i);
+                    if (cropsManager.isCropFertilized[i])
+                    {
+                        fertilizerCounter[i]--;
+                        if (fertilizerCounter[i] == 0)
+                        {
+                            cropsManager.isCropFertilized[i] = false;
+                        }
+                    }
+
                     textDisplayManager.UpdateCoin();
                     timers[i] = 0f;
                     cropsTimer[i].fillAmount = 0f;

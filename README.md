@@ -42,12 +42,12 @@ Each feature was committed with a clear message and code separation — you can 
 
 ## 📸 Gameplay Preview
 
-▶️ [Watch Gameplay Video (Google Drive)](https://drive.google.com/file/d/1ldXDzVLnqMXNR1yNUB0ZkN1E0Ydb0l_2/view?usp=sharing)
+▶️ [Watch Gameplay Video (Google Drive)](https://drive.google.com/file/d/1iuohS0wAlUWRAHfuDNvDLeLIZYN1YXr2/view?usp=sharing)
 
 🖼️ Screenshots:
 
-- ![Screenshot 1](https://drive.google.com/uc?id=1r4Id9aNhAL-rmfd0EeuUGxAbUBhKTHNR)
-- ![Screenshot 2](https://drive.google.com/uc?id=1ft0JMCv9N90GhMoXG1uFlKLrgz3GCXrE)
+- ![Screenshot 1](https://drive.google.com/file/d/1UdMbvWuFSbvZ8mBafVjkHqJQeUNeko34/view?usp=sharing)
+- ![Screenshot 2](https://drive.google.com/file/d/1prGOBBdlOa7OPIaPshPZyR0XBWHD0lSc/view?usp=sharing)
 
 ---
 

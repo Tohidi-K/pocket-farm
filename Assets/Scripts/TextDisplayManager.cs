@@ -20,6 +20,9 @@ public class TextDisplayManager : MonoBehaviour
     public GameObject extendTimePanel;
     public Button extendTimeButton;
 
+    public int minutes;
+    public int seconds;
+
     public float moveDistance = 60f;
     public float profitTextDuration = 1.2f;
     public float countdownTime = 300f;
@@ -119,8 +122,8 @@ public class TextDisplayManager : MonoBehaviour
 
     public void UpdateTimer()
     {
-        int minutes = Mathf.FloorToInt(currentTime / 60f);
-        int seconds = Mathf.FloorToInt(currentTime % 60f);
+        minutes = Mathf.FloorToInt(currentTime / 60f);
+        seconds = Mathf.FloorToInt(currentTime % 60f);
         countdownText.text = $"{minutes}:{seconds}";
     }
 

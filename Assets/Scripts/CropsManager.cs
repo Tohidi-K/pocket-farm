@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 
 public class CropsManager : MonoBehaviour
@@ -14,7 +15,7 @@ public class CropsManager : MonoBehaviour
     public bool[] isCropFertilized;
     public int profit;
 
-    private int _gold = 9000;
+    private int _gold = 150;
 
     public int Gold
     {
@@ -25,6 +26,7 @@ public class CropsManager : MonoBehaviour
             {
                 _gold = value;
                 ChangeUpgradeButtonColor();
+                ScoreManager.Instance.SetGold(value);
             }
         }
     }

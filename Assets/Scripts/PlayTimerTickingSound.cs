@@ -1,9 +1,9 @@
+using System.Collections;
 using UnityEngine;
 
 public class PlayTimerTickingSound : MonoBehaviour
 {
     private TextDisplayManager textDisplayManager;
-
     public AudioSource audioSource;
 
     private void Awake()
@@ -11,16 +11,19 @@ public class PlayTimerTickingSound : MonoBehaviour
         textDisplayManager = GameObject.Find("UIManager").GetComponent<TextDisplayManager>();
     }
 
-    private void Update()
+    private void Start()
     {
-        PlayTimerSound();
+        StartCoroutine(TimerSound());
     }
 
-    private void PlayTimerSound()
+    private IEnumerator TimerSound()
     {
-        if (textDisplayManager.minutes == 0 && textDisplayManager.seconds < 10)
+        while (textDisplayManager.currentTime >= 0)
         {
+            yield return new WaitUntil(() => textDisplayManager.isCurrentTimeInitialized && textDisplayManager.currentTime < 9);
             audioSource.Play();
+            yield return new WaitUntil(() => textDisplayManager.currentTime > 9);
+            audioSource.Stop();
         }
     }
 }

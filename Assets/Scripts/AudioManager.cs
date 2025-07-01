@@ -41,9 +41,9 @@ public class AudioManager : MonoBehaviour
 
     void LoadVolumes()
     {
-        SetMasterVolume(PlayerPrefs.GetFloat("MasterVolume", 1f));
-        SetMusicVolume(PlayerPrefs.GetFloat("MusicVolume", 1f));
-        SetSFXVolume(PlayerPrefs.GetFloat("SFXVolume", 1f));
+        SetMasterVolume(PlayerPrefs.GetFloat("MasterVolume", 0.5f));
+        SetMusicVolume(PlayerPrefs.GetFloat("MusicVolume", 0.5f));
+        SetSFXVolume(PlayerPrefs.GetFloat("SFXVolume", 0.5f));
     }
 
     float LinearToDecibel(float linear)

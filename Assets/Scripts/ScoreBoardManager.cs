@@ -63,4 +63,13 @@ public class ScoreBoardManager : MonoBehaviour
             scores = list;
         }
     }
+
+    public void ResetScoreBoard()
+    {
+        string path = Application.persistentDataPath + "/scores.json";
+        if (File.Exists(path))
+        {
+            File.Delete(path);
+        }
+    }
 }

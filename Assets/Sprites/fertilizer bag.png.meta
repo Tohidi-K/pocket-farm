@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      fertilizer bag_0: 4732368522294977007
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

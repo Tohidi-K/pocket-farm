@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 using UnityEngine.UI;
 
 public class CropsManager : MonoBehaviour
@@ -9,12 +10,12 @@ public class CropsManager : MonoBehaviour
     public int[] cropLevel = new int[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
     public int i = 0;
     public int fertilizerCount = 0;
-    public int extendTimeCost = 2000;
+    public int extendTimeCost = 1000;
     public bool isMoneyEnough;
     public bool[] isCropFertilized;
     public int profit;
 
-    private int _gold = 9000;
+    private int _gold = 150;
 
     public int Gold
     {
@@ -25,6 +26,7 @@ public class CropsManager : MonoBehaviour
             {
                 _gold = value;
                 ChangeUpgradeButtonColor();
+                ScoreManager.Instance.SetGold(value);
             }
         }
     }
@@ -143,7 +145,7 @@ public class CropsManager : MonoBehaviour
         {
             Gold -= extendTimeCost;
             extendTimeCost += 1000;
-            textDisplayManager.currentTime += 120;
+            textDisplayManager.currentTime += 60;
             textDisplayManager.ChangeExtendTimeText();
         }
     }

@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using UnityEditor.ShaderGraph;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
@@ -27,6 +26,7 @@ public class TextDisplayManager : MonoBehaviour
     public float profitTextDuration = 1.2f;
     public float countdownTime = 300f;
     public float currentTime;
+    public bool isCurrentTimeInitialized = false;
 
     private CropsManager cropsManager;
     private CropData cropData;
@@ -40,7 +40,9 @@ public class TextDisplayManager : MonoBehaviour
     private void Start()
     {
         currentTime = countdownTime;
+        isCurrentTimeInitialized = true;
         UpdateTimer();
+        StartCoroutine(CountdownTimer());
 
         EventTrigger trigger = extendTimeButton.gameObject.GetComponent<EventTrigger>();
         if (trigger == null)
@@ -57,16 +59,6 @@ public class TextDisplayManager : MonoBehaviour
         entryExit.eventID = EventTriggerType.PointerExit;
         entryExit.callback.AddListener((data) => { OnHoverExit(); });
         trigger.triggers.Add(entryExit);
-    }
-
-    private void Update()
-    {
-        currentTime -= Time.deltaTime;
-        UpdateTimer();
-        if (currentTime <= 0f)
-        {
-            SceneManager.LoadScene(0);
-        }
     }
 
     public void UpdateCropPrice(int price)
@@ -125,6 +117,20 @@ public class TextDisplayManager : MonoBehaviour
         minutes = Mathf.FloorToInt(currentTime / 60f);
         seconds = Mathf.FloorToInt(currentTime % 60f);
         countdownText.text = $"{minutes}:{seconds}";
+    }
+
+    private IEnumerator CountdownTimer()
+    {
+        while (currentTime > 0)
+        {
+            currentTime -= 1f;
+            UpdateTimer();
+            if (currentTime == 0f)
+            {
+                SceneManager.LoadScene(0);
+            }
+            yield return new WaitForSeconds(1f);
+        }
     }
 
     public void OnHoverEnter()

@@ -1,4 +1,6 @@
+using System.Collections.Generic;
 using System.IO;
+using NUnit.Framework;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,10 +11,13 @@ public class MenuUI : MonoBehaviour
     public GameObject nameInputPanel;
     public TMP_InputField nameInputField;
     public GameObject scoreboardPanel;
-    public TMP_Text scoreboardText;
+    public List<TMP_Text> scores;
+    //public TMP_Text scoreboardText;
 
     private void Start()
     {
+        nameInputField.characterLimit = 12;
+
         if (ScoreManager.Instance != null)
         {
             int finalScore = ScoreManager.Instance.GetGold();
@@ -65,11 +70,17 @@ public class MenuUI : MonoBehaviour
     void ShowScoreboard()
     {
         scoreboardPanel.SetActive(true);
-        scoreboardText.text = "";
 
-        foreach (var entry in ScoreBoardManager.Instance.highScores)
+        for (int i=0; i<4; i++)
         {
-            scoreboardText.text += $"{entry.playerName} - {entry.score}\n\n";
+            if (i < ScoreBoardManager.Instance.highScores.Count && ScoreBoardManager.Instance.highScores[i] != null)
+            {
+                scores[i].text = $"{ScoreBoardManager.Instance.highScores[i].playerName} - {ScoreBoardManager.Instance.highScores[i].score}";
+            }
+            else
+            {
+                scores[i].text = "Empty";
+            }
         }
     }
 }

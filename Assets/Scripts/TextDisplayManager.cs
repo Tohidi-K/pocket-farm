@@ -17,13 +17,16 @@ public class TextDisplayManager : MonoBehaviour
     public TMP_Text extendTimePrice;
     public TMP_Text fertilizerText;
     public GameObject extendTimePanel;
+    public GameObject fertalizerPricePanel;
+    public GameObject fertalizerMainPanel;
     public Button extendTimeButton;
-
+    
     public int minutes;
     public int seconds;
 
-    public float moveDistance = 60f;
-    public float profitTextDuration = 1.2f;
+    private float moveDistance = 70f;
+    private float profitTextDuration = 1.5f;
+
     public float countdownTime = 300f;
     public float currentTime;
     public bool isCurrentTimeInitialized = false;
@@ -44,21 +47,37 @@ public class TextDisplayManager : MonoBehaviour
         UpdateTimer();
         StartCoroutine(CountdownTimer());
 
-        EventTrigger trigger = extendTimeButton.gameObject.GetComponent<EventTrigger>();
-        if (trigger == null)
+        EventTrigger timeTrigger = extendTimeButton.gameObject.GetComponent<EventTrigger>();
+        if (timeTrigger == null)
         {
-            trigger = extendTimeButton.gameObject.AddComponent<EventTrigger>();
+            timeTrigger = extendTimeButton.gameObject.AddComponent<EventTrigger>();
         }
 
-        EventTrigger.Entry entryEnter = new EventTrigger.Entry();
-        entryEnter.eventID = EventTriggerType.PointerEnter;
-        entryEnter.callback.AddListener((data) => { OnHoverEnter(); });
-        trigger.triggers.Add(entryEnter);
+        EventTrigger fertalizerTrigger = fertalizerMainPanel.gameObject.GetComponent<EventTrigger>();
+        if (fertalizerTrigger == null)
+        {
+            fertalizerTrigger = fertalizerMainPanel.gameObject.AddComponent<EventTrigger>();
+        }
 
-        EventTrigger.Entry entryExit = new EventTrigger.Entry();
-        entryExit.eventID = EventTriggerType.PointerExit;
-        entryExit.callback.AddListener((data) => { OnHoverExit(); });
-        trigger.triggers.Add(entryExit);
+        EventTrigger.Entry timePanelEntryEnter = new EventTrigger.Entry();
+        timePanelEntryEnter.eventID = EventTriggerType.PointerEnter;
+        timePanelEntryEnter.callback.AddListener((data) => { OnHoverEnterInTimePanel(); });
+        timeTrigger.triggers.Add(timePanelEntryEnter);
+
+        EventTrigger.Entry timePanelEntryExit = new EventTrigger.Entry();
+        timePanelEntryExit.eventID = EventTriggerType.PointerExit;
+        timePanelEntryExit.callback.AddListener((data) => { OnHoverExitOutOfTimePanel(); });
+        timeTrigger.triggers.Add(timePanelEntryExit);
+
+        EventTrigger.Entry fertalizerPanelEntryEnter = new EventTrigger.Entry();
+        fertalizerPanelEntryEnter.eventID = EventTriggerType.PointerEnter;
+        fertalizerPanelEntryEnter.callback.AddListener((data) => { OnHoverEnterInFertalizerPanel(); });
+        fertalizerTrigger.triggers.Add(fertalizerPanelEntryEnter);
+
+        EventTrigger.Entry fertalizerPanelEntryExit = new EventTrigger.Entry();
+        fertalizerPanelEntryExit.eventID = EventTriggerType.PointerExit;
+        fertalizerPanelEntryExit.callback.AddListener((data) => { OnHoverExitOutOfFertalizerPanel(); });
+        fertalizerTrigger.triggers.Add(fertalizerPanelEntryExit);
     }
 
     public void UpdateCropPrice(int price)
@@ -81,10 +100,18 @@ public class TextDisplayManager : MonoBehaviour
 
     public void DisplayProfit(int cropIndex)
     {
+        if (!cropsManager.isCropFertilized[cropIndex])
+        {
+            cropProfit[cropIndex].color = new Color(1, 0.732f, 0);
+        }
+        else
+        {
+            cropProfit[cropIndex].color = new Color(0, 1, 0.8f);
+        }
         cropProfit[cropIndex].text = cropsManager.profit.ToString();
-        Color c = cropProfit[cropIndex].color;
-        c.a = 1f;
-        cropProfit[cropIndex].color = c;
+        //Color c = cropProfit[cropIndex].color;
+        //c.a = 1f;
+        //cropProfit[cropIndex].color = c;
         StartCoroutine(FadeAndMoveText(cropIndex));
     }
 
@@ -116,7 +143,15 @@ public class TextDisplayManager : MonoBehaviour
     {
         minutes = Mathf.FloorToInt(currentTime / 60f);
         seconds = Mathf.FloorToInt(currentTime % 60f);
-        countdownText.text = $"{minutes}:{seconds}";
+
+        if (seconds > 9)
+        {
+            countdownText.text = $"{minutes}:{seconds}";
+        }
+        else
+        {
+            countdownText.text = $"{minutes}:0{seconds}";
+        }
     }
 
     private IEnumerator CountdownTimer()
@@ -133,14 +168,24 @@ public class TextDisplayManager : MonoBehaviour
         }
     }
 
-    public void OnHoverEnter()
+    public void OnHoverEnterInTimePanel()
     {
         extendTimePanel.SetActive(true);
     }
 
-    public void OnHoverExit()
+    public void OnHoverExitOutOfTimePanel()
     {
         extendTimePanel.SetActive(false);
+    }
+
+    public void OnHoverEnterInFertalizerPanel()
+    {
+        fertalizerPricePanel.SetActive(true);
+    }
+
+    public void OnHoverExitOutOfFertalizerPanel()
+    {
+        fertalizerPricePanel.SetActive(false);
     }
 
     public void ChangeExtendTimeText()

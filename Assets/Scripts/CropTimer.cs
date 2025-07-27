@@ -34,13 +34,18 @@ public class CropTimer : MonoBehaviour
                 fillAmount = timers[i] / cycleDuration[i];
                 cropsTimer[i].fillAmount = fillAmount;
 
+                if (cropsTimer[i].color == new Color(0.093f, 1, 0) && cropsManager.isCropFertilized[i])
+                {
+                    cropsTimer[i].color = new Color(0, 1, 0.8f);
+                }
+
                 if (timers[i] >= cycleDuration[i])
                 {
                     if (!textDisplayManager.cropProfit[i].gameObject.activeInHierarchy)
                     {
                         textDisplayManager.cropProfit[i].gameObject.SetActive(true);
                     }
-                    
+
                     cropsManager.EarnProfit(i);
                     if (cropsManager.isCropFertilized[i])
                     {
@@ -48,6 +53,7 @@ public class CropTimer : MonoBehaviour
                         if (fertilizerCounter[i] == 0)
                         {
                             cropsManager.isCropFertilized[i] = false;
+                            cropsTimer[i].color = new Color(0.093f, 1, 0);
                         }
                     }
 

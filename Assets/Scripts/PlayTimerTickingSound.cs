@@ -1,10 +1,10 @@
-using System.Collections;
 using UnityEngine;
+using System.Collections;
 
 public class PlayTimerTickingSound : MonoBehaviour
 {
-    private TextDisplayManager textDisplayManager;
     public AudioSource audioSource;
+    private TextDisplayManager textDisplayManager;
 
     private void Awake()
     {
@@ -21,8 +21,10 @@ public class PlayTimerTickingSound : MonoBehaviour
         while (textDisplayManager.currentTime >= 0)
         {
             yield return new WaitUntil(() => textDisplayManager.isCurrentTimeInitialized && textDisplayManager.currentTime < 9);
+            textDisplayManager.countdownText.color = Color.red;
             audioSource.Play();
             yield return new WaitUntil(() => textDisplayManager.currentTime > 9);
+            textDisplayManager.countdownText.color = Color.white;
             audioSource.Stop();
         }
     }

@@ -15,6 +15,7 @@ public class CropsManager : MonoBehaviour
     public bool[] isCropFertilized;
     public int profit;
 
+    private int fertalizerPrice = 120;
     private int _gold = 150;
 
     public int Gold
@@ -34,6 +35,16 @@ public class CropsManager : MonoBehaviour
     public List<GameObject> cropsButtons;
     public List<GameObject> upgradeButtons;
     public List<TMP_Text> upgradeText;
+    //public List<Transform> particleSpawnPoint;
+
+    public AudioSource buyingSound;
+    public AudioSource notEnoughMoneySound;
+    public AudioSource cropUpgradeSound;
+    public AudioSource fertalizingSound;
+    public AudioSource extendTimeSound;
+    public AudioSource buyingFertalizerSound;
+
+    //public GameObject starEffectPrefab;
 
     private TextDisplayManager textDisplayManager;
     private CropData cropData;
@@ -63,10 +74,12 @@ public class CropsManager : MonoBehaviour
                 textDisplayManager.UpdateCropPrice(cropPrices[i]);
             }
             isMoneyEnough = true;
+            buyingSound.Play();
         }
         else
         {
             isMoneyEnough = false;
+            notEnoughMoneySound.Play();
         }
     }
 
@@ -106,6 +119,14 @@ public class CropsManager : MonoBehaviour
             textDisplayManager.UpdateCoin();
             upgradeText[cropIndex].text = cropData.upgradePrices[cropIndex, cropLevel[cropIndex]].ToString();
             textDisplayManager.UpdateLevel(cropIndex);
+
+            cropUpgradeSound.Play();
+            //GameObject effect = Instantiate(starEffectPrefab, particleSpawnPoint[cropIndex].position, Quaternion.identity);
+            //Destroy(effect, 2f);
+        }
+        else
+        {
+            notEnoughMoneySound.Play();
         }
     }
 
@@ -147,16 +168,28 @@ public class CropsManager : MonoBehaviour
             extendTimeCost += 1000;
             textDisplayManager.currentTime += 60;
             textDisplayManager.ChangeExtendTimeText();
+
+            extendTimeSound.Play();
+        }
+        else
+        {
+            notEnoughMoneySound.Play();
         }
     }
 
     public void BuyFertilizer()
     {
-        if (Gold >= 120)
+        if (Gold >= fertalizerPrice)
         {
-            Gold -= 120;
+            Gold -= fertalizerPrice;
             fertilizerCount++;
             textDisplayManager.UpdateFertilizerText();
+
+            buyingFertalizerSound.Play();
+        }
+        else
+        {
+            notEnoughMoneySound.Play();
         }
     }
 
@@ -168,6 +201,11 @@ public class CropsManager : MonoBehaviour
             textDisplayManager.UpdateFertilizerText();
             isCropFertilized[cropIndex] = true;
             cropTimer.fertilizerCounter[cropIndex] = 5;
+            fertalizingSound.Play();
+        }
+        else
+        {
+            notEnoughMoneySound.Play();
         }
     }
 }

@@ -2,6 +2,7 @@ using UnityEngine;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 
 public class ScoreBoardManager : MonoBehaviour
 {
@@ -9,6 +10,11 @@ public class ScoreBoardManager : MonoBehaviour
     private string savePath;
     public List<ScoreEntry> highScores = new List<ScoreEntry>();
     public int maxEntries = 4;
+
+    #if UNITY_WEBGL && !UNITY_EDITOR
+        [DllImport("__Internal")]
+        private static extern void SyncFileSystem();
+    #endif
 
     private void Awake()
     {
@@ -42,6 +48,10 @@ public class ScoreBoardManager : MonoBehaviour
     {
         string json = JsonUtility.ToJson(new ScoreListWrapper(highScores), true);
         File.WriteAllText(savePath, json);
+
+        #if UNITY_WEBGL && !UNITY_EDITOR
+            SyncFileSystem(); // Flush to IndexedDB
+        #endif
     }
 
     private void LoadScores()

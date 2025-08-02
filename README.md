@@ -60,7 +60,7 @@ Each feature was committed with a clear message and code separation — you can 
 
 ## 🚀 Try It Out
 
-[📦 [Download Windows Build (ZIP)](https://drive.google.com/file/d/1YECV_brjXPeQVd7AqsE8CL6dld-g77Ny/view?usp=sharing)](https://tohidi.itch.io/pocket-farm)
+https://tohidi.itch.io/pocket-farm
 
 ---
 
